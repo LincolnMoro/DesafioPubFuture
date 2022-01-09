@@ -1,0 +1,16 @@
+{
+    "name": "lincoln/desafio-pub-future",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    },
+    "authors": [
+        {
+            "name": "Lincoln Rogala Moro",
+            "email": "lincoln.moro.bc@gmail.com"
+        }
+    ],
+    "require": {}
+}
