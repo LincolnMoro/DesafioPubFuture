@@ -2,6 +2,8 @@
 
 namespace app\application\classes\model;
 
+use app\application\config\database;
+
 class Receita {
     private string $descricao;
     private string $valor;
@@ -18,4 +20,19 @@ class Receita {
             "outros" => "Outros",
         ];
     }
+
+    public function listAll() {
+        $db = new Connection;
+        $query = "SELECT * FROM teste";
+        $executeQuery = mysqli_query($db->connect(), $query);
+
+        if($executeQuery) {
+            return $executeQuery;
+        }
+        else {
+            return die();
+        }
+    }
+
+
 }

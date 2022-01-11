@@ -54,7 +54,8 @@ ul, .main-menu {
 }
 
 .widget {
-    background-color: #daddf5;
+    /*background-color: #daddf5;*/
+    background-color: #e9ebf5;
     width: 28%;
     position: relative;
     border-radius: 20px;
