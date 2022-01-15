@@ -9,9 +9,11 @@ class ReceitaController {
         $receita = new Receita;
         $receitas = $receita->listAll();
         $tiposReceita = $receita->tiposReceita();
+        $pages = $receita->getNumPages();
 
         $_REQUEST['receitas'] = $receitas;
         $_REQUEST['tiposReceita'] = $tiposReceita;
+        $_REQUEST['pages'] = $pages;
 
         if(isset($_GET['id']) || isset($_GET['add'])) {
             $this->editar();
@@ -22,6 +24,7 @@ class ReceitaController {
         }
 
         else {
+            if(empty($_GET['add']) && empty($_GET['id']))
             require_once __DIR__ . '/../view/templates/display_receita.php';
         }
     }

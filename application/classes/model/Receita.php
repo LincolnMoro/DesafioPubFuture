@@ -3,6 +3,7 @@
 namespace app\application\classes\model;
 
 use app\application\config\Connection;
+use app\application\utils\Paginator;
 
 class Receita {
     private string $descricao;
@@ -14,6 +15,12 @@ class Receita {
     private string $dataDe;
     private string $dataAte;
     private string $tipoFiltro;
+    private $numRows;
+    private int $numPages;
+
+    public function getNumPages() {
+        return $this->numPages;
+    }
 
     //Define os valores padrão para tipos de receitas
     public function setReceitas() {
@@ -34,13 +41,17 @@ class Receita {
     //Lista todas as receitas para exibição na página
     public function listAll() {
         $db = new Connection;
+        $pager = new Paginator;
+        $offset = $pager->offset();
         $this->dataDe = $_GET['de'] ?? "0000-00-00";
         $this->dataAte = $_GET['ate'] ?? "9999-12-31";
         $this->tipoFiltro = $_GET['tipo'] ?? "tipoReceita";
-        $query = "SELECT * FROM receitas WHERE dataRecebimento BETWEEN '{$this->dataDe}' AND ('{$this->dataAte}') OR tipoReceita='{$this->tipoFiltro}'";
+        $query = "SELECT * FROM receitas WHERE dataRecebimento BETWEEN '{$this->dataDe}' AND ('{$this->dataAte}') OR tipoReceita='{$this->tipoFiltro}' LIMIT {$offset}, 10";
         $executeQuery = mysqli_query($db->connect(), $query);
 
         if($executeQuery) {
+            $this->numRows = mysqli_num_rows($executeQuery);
+            $this->numPages = $pager->totalPages($this->numRows);
             return $executeQuery;
         }
         else {
