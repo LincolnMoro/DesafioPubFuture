@@ -2,20 +2,18 @@
 
 namespace app\public_html;
 
+use app\application\classes\controllers\ContasController;
+use app\application\classes\controllers\DespesasController;
 use app\application\classes\controllers\ReceitaController;
+use app\application\classes\controllers\PerfilController;
 
 require_once "../vendor/autoload.php";
 
-$test = new ReceitaController;
-//$test->listar();
+$receita = new ReceitaController;
+$despesa = new DespesasController;
+$conta = new ContasController;
+$perfil = new PerfilController;
 
-//require_once "../application/classes/view/header.php";
-
-//require_once "../application/classes/view/widget.php";
-
-//require_once "../application/classes/view/content.php";
-
-//require_once "../application/classes/view/footer.php";
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -30,10 +28,10 @@ $test = new ReceitaController;
     <nav class="main-nav">
         <menu class="main-menu">
             <ul>
-                <li><a href="/receitas"><i class="fas fa-search-dollar"></i><p>Receitas</p></a></li>
-                <li><a href="/despesas"><i class="fas fa-file-invoice-dollar"></i><p>Despesas</p></a></li>
-                <li><a href="/contas"><i class="fas fa-money-check-alt"></i><p>Contas</p></a></li>
-                <li><a href="/perfil"><i class="far fa-user"></i><p>Meu Perfil</p></a></li>
+                <li><a href="?receitas"><i class="fas fa-search-dollar"></i><p>Receitas</p></a></li>
+                <li><a href="?despesas"><i class="fas fa-file-invoice-dollar"></i><p>Despesas</p></a></li>
+                <li><a href="?contas"><i class="fas fa-money-check-alt"></i><p>Contas</p></a></li>
+                <li><a href="?perfil"><i class="far fa-user"></i><p>Meu Perfil</p></a></li>
             </ul>
         </menu>
     </nav>
@@ -42,7 +40,23 @@ $test = new ReceitaController;
 </div>
 
 <div class="content">
-    <?php $test->listar(); ?>
+    <?php
+        if(isset($_GET['receitas'])) {
+            $receita->listar();
+        }
+        if(isset($_GET['despesas'])) {
+            $despesa->listar();
+        }
+        if(isset($_GET['contas'])) {
+            $conta->listar();
+        }
+        if(isset($_GET['perfil'])) {
+            $perfil->listar();
+        }
+        if(empty($_GET)) {
+            $receita->listar();
+        }
+    ?>
 </div>
 
 </body>

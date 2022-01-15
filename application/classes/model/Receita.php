@@ -160,7 +160,7 @@ class Receita {
             return $executeQuery;
         }
         else {
-            return die();
+            die("Error: " . $db->connect->connect_error);
         }
     }
 
