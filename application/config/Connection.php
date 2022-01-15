@@ -2,6 +2,8 @@
 
 namespace app\application\config;
 
+use app\application\utils\Database;
+
 class Connection {
 
     public Database $connection;
@@ -18,7 +20,7 @@ class Connection {
     }
 
     public function connect() {
-        confConnection();
+        $this->confConnection();
         return mysqli_connect($this->connection->getHost(), $this->connection->getUser(), $this->connection->getPass(), $this->connection->getName());
     }
 }
