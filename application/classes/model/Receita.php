@@ -11,7 +11,9 @@ class Receita {
     private string $dataRecebimentoEsperado;
     private int $conta;
     private $tipoReceita;
-    private int $id;
+    private string $dataDe;
+    private string $dataAte;
+    private string $tipoFiltro;
 
     //Define os valores padrão para tipos de receitas
     public function setReceitas() {
@@ -32,28 +34,32 @@ class Receita {
     //Lista todas as receitas para exibição na página
     public function listAll() {
         $db = new Connection;
-        $query = "SELECT * FROM receitas";
+        $this->dataDe = $_GET['de'] ?? "0000-00-00";
+        $this->dataAte = $_GET['ate'] ?? "9999-12-31";
+        $this->tipoFiltro = $_GET['tipo'] ?? "tipoReceita";
+        $query = "SELECT * FROM receitas WHERE dataRecebimento BETWEEN '{$this->dataDe}' AND ('{$this->dataAte}') OR tipoReceita='{$this->tipoFiltro}'";
         $executeQuery = mysqli_query($db->connect(), $query);
 
         if($executeQuery) {
             return $executeQuery;
         }
         else {
-            return die();
+            return die("Error: " . $db->connect->connect_error);
         }
     }
 
     //Seleciona receita individual com base no ID
     public function select($id) {
+        $this->id = $id;
         $db = new Connection;
         $query = "SELECT * FROM receitas WHERE id='{$this->id}'";
         $executeQuery = mysqli_query($db->connect(), $query);
 
         if($executeQuery) {
-            return $executeQuery;
+            return mysqli_fetch_assoc($executeQuery);
         }
         else {
-            return die();
+            return die("Error: " . $db->connect->connect_error);
         }
     }
 
@@ -64,18 +70,27 @@ class Receita {
             $this->setPost($post);
 
             $db = new Connection;
-            $query = "INSERT INTO receitas ('valor', 'dataRecebimento', 'dataRecebimentoEsperado', 'descricao', 'conta', 'tipoReceita')
+            $query = "INSERT INTO receitas (valor, dataRecebimento, dataRecebimentoEsperado, descricao, conta, tipoReceita)
             VALUES (
                 '{$this->valor}',
                 '{$this->dataRecebimento}',
                 '{$this->dataRecebimentoEsperado}',
                 '{$this->descricao}',
                 '{$this->conta}',
-                '{$this->tipoReceita}',
+                '{$this->tipoReceita}'
             )";
+
+            $executeQuery = mysqli_query($db->connect(), $query);
+
+            if(!$executeQuery) {
+                die("Error: " . $db->connect->connect_error);
+            }
+            else {
+                header("Location:index.php");
+            }
         }
         else {
-            return "Erro na solicitação";
+            echo "Erro na solicitação";
         }
     }
 
@@ -84,6 +99,7 @@ class Receita {
         if(isset($_POST['submit'])) {
             $post = $_POST;
             $this->setPost($post);
+            $this->id = $id;
 
             $db = new Connection;
             $query = "UPDATE receitas SET
@@ -92,12 +108,48 @@ class Receita {
             dataRecebimentoEsperado='{$this->dataRecebimentoEsperado}',
             descricao='{$this->descricao}',
             conta='{$this->conta}',
-            tipoReceita='{$this->tipoReceita}',
-            WHERE id='{$this->id}';
-        ";
+            tipoReceita='{$this->tipoReceita}'
+            WHERE id='{$this->id}' ";
+
+            $executeQuery = mysqli_query($db->connect(), $query);
+
+            if(!$executeQuery) {
+                die("Error: " . $db->connect->connect_error);
+            }
+            else {
+                header("Location:index.php?id={$this->id}");
+            }
+        }
+    }
+
+    public function delete($id) {
+        if(isset($_GET['delete'])) {
+            $db = new Connection;
+            $this->id = $id;
+            $query = "DELETE FROM receitas WHERE id={$this->id}";
+
+            $executeQuery = mysqli_query($db->connect(), $query);
+
+            if(!$executeQuery) {
+                die("Error: " . $db->connect->connect_error);
+            }
+            else {
+                header("Location:index.php");
+            }
+        }
+    }
+
+    public function getConta() {
+        $db = new Connection;
+        $query = "SELECT * FROM contas";
+        $executeQuery = mysqli_query($db->connect(), $query);
+
+        if($executeQuery) {
+            //return mysqli_fetch_assoc($executeQuery);
+            return $executeQuery;
         }
         else {
-            return "Erro na solicitação";
+            return die();
         }
     }
 
@@ -109,7 +161,6 @@ class Receita {
         $this->descricao = $post['descricao'];
         $this->conta = $post['conta'];
         $this->tipoReceita = $post['tipoReceita'];
-        $this->id = $post['id'];
     }
 
 }

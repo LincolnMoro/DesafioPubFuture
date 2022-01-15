@@ -6,6 +6,8 @@ use app\application\utils\Database;
 
 class Connection {
 
+    public $connect;
+
     public Database $connection;
 
     public function __construct() {
@@ -21,6 +23,19 @@ class Connection {
 
     public function connect() {
         $this->confConnection();
-        return mysqli_connect($this->connection->getHost(), $this->connection->getUser(), $this->connection->getPass(), $this->connection->getName());
+        $this->connect =  mysqli_connect($this->connection->getHost(), $this->connection->getUser(), $this->connection->getPass(), $this->connection->getName());
+        if($this->connect->connect_error) {
+            die("Error: " . $this->connect->connect_error);
+        }
+        else {
+            return $this->connect;
+        }
     }
+
+    /*public function query($query) {
+        $this->query = $query;
+        if(!$this->query) {
+            $this->error = mysqli_error($this->connect());
+        }
+    }*/
 }

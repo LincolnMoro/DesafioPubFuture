@@ -12,5 +12,7 @@
             "email": "lincoln.moro.bc@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+      "ext-mysqli": "*"
+    }
 }

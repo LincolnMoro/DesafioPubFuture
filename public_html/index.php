@@ -2,11 +2,11 @@
 
 namespace app\public_html;
 
-use app\application\classes\controllers\ViewReceita;
+use app\application\classes\controllers\ReceitaController;
 
 require_once "../vendor/autoload.php";
 
-$test = new ViewReceita;
+$test = new ReceitaController;
 //$test->listar();
 
 //require_once "../application/classes/view/header.php";
