@@ -2,58 +2,19 @@
 
 namespace app\application\classes\controllers;
 
-use app\application\classes\model\Despesa;
+use app\application\classes\model\Perfil;
 
 class PerfilController {
     public function listar() {
-        $despesa = new Despesa;
-        $despesas = $despesa->listAll();
-        $tipoDespesa = $despesa->tipoDespesa();
-        $pages = $despesa->getNumPages();
+        $perfil = new Perfil;
+        //$usuario = $perfil->select($_SESSION['usuario']);
+        $usuario = $perfil->select("lincolnmoro");
 
-        $_REQUEST['despesas'] = $despesas;
-        $_REQUEST['tipoDespesa'] = $tipoDespesa;
-        $_REQUEST['pages'] = $pages;
-
-        if(isset($_GET['id']) || isset($_GET['add'])) {
-            $this->editar();
-        }
-
-        if(isset($_GET['delete'])) {
-            $despesa->delete($_GET['delete']);
-        }
-
-        else {
-            if(empty($_GET['add']) && empty($_GET['id']))
-                require_once __DIR__ . '/../view/templates/display_despesa.php';
-        }
-    }
-
-    public function editar() {
-
-        $despesa = new Despesa;
-        if(isset($_GET['id'])) {
-            $id = $_GET['id'];
-            $editar =  $despesa->select($id);
-            $_REQUEST['editar'] = $editar;
-        }
-
-        $tipoDespesa = $despesa->tiposReceita();
-        $contas = $despesa->getConta();
-
-
-        $_REQUEST['tipoDespesa'] = $tipoDespesa;
-        $_REQUEST['contas'] = $contas;
-
-        require_once __DIR__ . '/../view/templates/edit_receita.php';
+        $_REQUEST['usuario'] = $usuario;
 
         if(isset($_POST['submit'])) {
-            if(isset($_GET['id'])) {
-                $despesa->edit($id);
-            }
-            else {
-                $despesa->create();
-            }
+            $perfil->editar();
         }
+                require_once __DIR__ . '/../view/templates/perfil.php';
     }
 }
