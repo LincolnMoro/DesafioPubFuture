@@ -18,6 +18,7 @@ class Conta {
     private $numRows;
     private int $numPages;
     private $saldoTemp;
+    private $saldoTotal;
 
     public function getNumPages() {
         return $this->numPages;
@@ -93,7 +94,7 @@ class Conta {
                 die("Error: " . $db->connect->connect_error);
             }
             else {
-                header("Location:index.php");
+                header("Location:contas.php");
             }
         }
         else {
@@ -122,7 +123,7 @@ class Conta {
                 die("Error: " . $db->connect->connect_error);
             }
             else {
-                header("Location:index.php?id={$this->id}");
+                header("Location:contas.php?id={$this->id}");
             }
         }
     }
@@ -139,47 +140,35 @@ class Conta {
                 die("Error: " . $db->connect->connect_error);
             }
             else {
-                header("Location:index.php");
+                header("Location:contas.php");
             }
         }
     }
 
-    public function transferir() {
+    public function transferir($origem) {
         if(isset($_POST['submit'])) {
-            $id = $_POST['id_origem'];
-
-            $db = new Connection;
-            $this->contaOrigem = $_POST['id_origem'];
-            $this->contaDestino = $_POST['id_destino'];
+            $this->contaDestino = $_POST['contaDestino'];
             $this->valorTransferir = $_POST['valor'];
 
-            $saldoOrigem = $this->getSaldo($this->contaOrigem);
+            $saldoOrigem = $this->getSaldo($origem);
             $saldoDestino = $this->getSaldo($this->contaDestino);
 
-            $this->setSaldo($saldoOrigem - $this->valorTransferir, $this->contaOrigem);
+            $this->setSaldo($saldoOrigem - $this->valorTransferir, $origem);
             $this->setSaldo($saldoDestino + $this->valorTransferir, $this->contaDestino);
+
+            return header("Location:contas.php");
         }
     }
 
-    private function getSaldo($conta) {
-        $db = new Connection;
-        $this->contaTemp = $conta;
-        $getSaldo = "SELECT saldo FROM contas WHERE id='{$this->contaTemp}'";
-        $execGetSaldo = mysqli_query($db->connect(), $getSaldo);
-        if(!$execGetSaldo) {
-            die("Error: " . $db->connect->connect_error);
-        }
-        else {
-            return $execGetSaldo;
-        }
+    public function getSaldo($conta) {
+        $contaDados = $this->select($conta);
+        return $contaDados['saldo'];
     }
 
-    private function setSaldo($conta, $valor) {
+    public function setSaldo($valor, $conta) {
         $db = new Connection;
-        $this->contaTemp = $conta;
-        $this->saldoTemp = $valor;
 
-        $query = "UPDATE contas SET saldo='{$this->saldoTemp}' WHERE id='{$this->contaTemp}'";
+        $query = "UPDATE contas SET saldo='{$valor}' WHERE id='{$conta}'";
         $executeQuery = mysqli_query($db->connect(), $query);
 
         if(!$executeQuery) {
@@ -189,10 +178,28 @@ class Conta {
 
     //Grava os dados da variável POST nos atributos da classe
     private function setPost($post) {
-        $this->saldo = $post['saldo'];
+        $this->saldo = 0;
         $this->instituicaoFinanceira = $post['instituicaoFinanceira'];
         $this->titular = $post['titular'];
         $this->conta = $post['conta'];
         $this->tipoConta = $post['tipoConta'];
+    }
+
+    public function getSaldoTotal() {
+        $db = new Connection;
+
+        $query = "SELECT * FROM contas";
+        $executeQuery = mysqli_query($db->connect(), $query);
+
+        if($executeQuery) {
+            foreach ($executeQuery as $conta) {
+                number_format($this->saldoTotal);
+                $this->saldoTotal = $this->saldoTotal + $conta['saldo'];
+            }
+            return $this->saldoTotal;
+        }
+        else {
+            return die("Error: " . $db->connect->connect_error);
+        }
     }
 }

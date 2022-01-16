@@ -23,6 +23,10 @@ class ContasController {
             $conta->delete($_GET['delete']);
         }
 
+        if(isset($_GET['transferir'])) {
+            $this->transferir();
+        }
+
         else {
             if(empty($_GET['add']) && empty($_GET['id']))
                 require_once __DIR__ . '/../view/templates/display_conta.php';
@@ -60,9 +64,12 @@ class ContasController {
             $conta = new Conta;
             $contaOrigem = $conta->select($_GET['transferir']);
             $_REQUEST['contaOrigem'] = $contaOrigem;
-            $this->transferir();
-
-            require_once __DIR__ . '/../view/templates/transferir_conta.php';
         }
+
+        if(isset($_POST['submit'])) {
+            $conta->transferir($_GET['transferir']);
+        }
+
+        require_once __DIR__ . '/../view/templates/transferir_conta.php';
     }
 }

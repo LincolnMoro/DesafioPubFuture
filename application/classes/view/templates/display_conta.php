@@ -27,6 +27,7 @@ $pages = $_REQUEST['pages'];
             <th>Tipo de Conta</th>
             <th>Instituição</th>
             <th>Conta</th>
+            <th>Saldo</th>
             <th>Ação</th>
         </tr>
         <?php foreach ($contas as $conta): ?>
@@ -35,6 +36,7 @@ $pages = $_REQUEST['pages'];
                 <td><?php echo $conta['tipoConta'] ?></td>
                 <td><?php echo $conta['instituicaoFinanceira'] ?></td>
                 <td><?php echo $conta['conta'] ?></td>
+                <td><?php echo $conta['saldo'] ?></td>
                 <td><a class="button-blue button" href="?transferir=<?php echo $conta['id']; ?>">Transferência</a></td>
                 <td><a class="button-blue button" href="?id=<?php echo $conta['id']; ?>">Editar</a></td>
                 <td><a class="button-red button" href="?delete=<?php echo $conta['id']; ?>">Excluir</a></td>

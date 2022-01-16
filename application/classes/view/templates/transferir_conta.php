@@ -1,44 +1,41 @@
 <?php
-if(isset($_REQUEST['editar'])) {
-    $editar = $_REQUEST['editar'];
-}
-$contas = $_REQUEST['contas'];
+$tipoConta = $_REQUEST['tipoConta'];
 $contaOrigem = $_REQUEST['contaOrigem'];
+$contas = $_REQUEST['contas'];
 ?>
 
-<div class="view-nav">
-    <button formaction="index.php"><a href="index.php">Voltar</a></button>
-</div>
-
-<h2>Transferência de Saldo</h2>
+<div class="button-main"><a class="button button-main button-blue" href="contas.php">Voltar</a></div>
 
 <div class="">
-    <h2><?php echo isset($_GET['id']) ? "Editar" : "Adicionar"; ?> Receita</h2>
+    <h2>Transferência de Valores</h2>
     <form action="" method="post">
 
+        <h3>Conta de Origem</h3>
         <div class="form-field">
-            <label for="conta">Valor</label>
-            <input type="text" name="contaOrigem" id="conta" value="<?php echo $contaOrigem['titular'] . " | " . $contaOrigem['conta']; ?>">
+            <label for="titular">Titular</label>
+            <input type="text" name="titular" id="titular" value="<?php echo $contaOrigem['titular']; ?>" disabled>
         </div>
 
         <div class="form-field">
-            <label for="valor">Valor</label>
-            <input type="text" name="valor" id="valor">
+            <label for="instituicaoFinanceira">Instituição Financeira</label>
+            <input type="text" name="instituicaoFinanceira" id="instituicaoFinanceira" value="<?php echo $contaOrigem['instituicaoFinanceira']; ?>" disabled>
         </div>
 
         <div class="form-field">
-            <label for="contaOrigem">Data de Recebimento</label>
-            <input type="text" name="contaOrigem" id="contaOrigem" value="<?php if($_GET == "id"){ echo $editar['dataRecebimento']; }?>">
+            <label for="tipoConta">Instituição Financeira</label>
+            <input type="text" name="tipoConta" id="tipoConta" value="<?php echo $contaOrigem['tipoConta']; ?>" disabled>
         </div>
 
         <div class="form-field">
-            <label for="dataRecebimentoEsperado">Data Esperada para Recebimento</label>
-            <input type="date" name="dataRecebimentoEsperado" id="dataRecebimentoEsperado" value="<?php if($_GET == "id"){ echo $editar['dataRecebimentoEsperado']; }?>">
+            <label for="numeroConta">Conta</label>
+            <input type="text" name="numeroConta" id="numeroConta" value="<?php echo $contaOrigem['conta']; ?>" disabled>
         </div>
 
+        <h3>Conta de Destino</h3>
+
         <div class="form-field">
-            <label for="contaDestino">Conta</label>
-            <select name="contaDestino" id="contaDestino">
+            <label for="conta">Conta</label>
+            <select name="contaDestino" id="conta">
                 <?php
                 foreach ($contas as $conta) {
                     echo "<option value='{$conta['id']}'>{$conta['titular']} - {$conta['instituicaoFinanceira']} | {$conta['conta']}</option>";
@@ -48,7 +45,12 @@ $contaOrigem = $_REQUEST['contaOrigem'];
         </div>
 
         <div class="form-field">
-            <input class="button" type="submit" name="submit" value="Transferir">
+            <label for="valor">Valor</label>
+            <input type="number" name="valor" id="valor" value="">
+        </div>
+
+        <div class="form-field">
+            <input class="button button-main button-green" type="submit" name="submit" value="Transferir">
         </div>
     </form>
 </div>

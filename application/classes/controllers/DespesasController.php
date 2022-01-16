@@ -49,7 +49,8 @@ class DespesasController {
 
         if(isset($_POST['submit'])) {
             if(isset($_GET['id'])) {
-                $despesa->edit($id);
+                $valorAtual = $editar['valor'];
+                $despesa->edit($id, $valorAtual);
             }
             else {
                 $despesa->create();

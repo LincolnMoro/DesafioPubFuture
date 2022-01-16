@@ -93,6 +93,11 @@ class Receita {
 
             $executeQuery = mysqli_query($db->connect(), $query);
 
+            $contaUpdate = new Conta;
+            $saldo = $contaUpdate->getSaldo($this->conta);
+            number_format($this->valor);
+            $contaUpdate->setSaldo($this->conta, $saldo + $this->valor);
+
             if(!$executeQuery) {
                 die("Error: " . $db->connect->connect_error);
             }
@@ -106,7 +111,7 @@ class Receita {
     }
 
     //Edita o cadastro da receita com base no ID da receita
-    public function edit($id) {
+    public function edit($id, $valorAtual) {
         if(isset($_POST['submit'])) {
             $post = $_POST;
             $this->setPost($post);
@@ -123,6 +128,17 @@ class Receita {
             WHERE id='{$this->id}' ";
 
             $executeQuery = mysqli_query($db->connect(), $query);
+
+            $contaUpdate = new Conta;
+            $saldo = $contaUpdate->getSaldo($this->conta);
+            if($valorAtual > $this->valor) {
+                $saldoAtualizar = $valorAtual - $this->valor;
+                $contaUpdate->setSaldo($this->conta, $saldo - $saldoAtualizar);
+            }
+            else {
+                $saldoAtualizar = $this->valor - $valorAtual;
+                $contaUpdate->setSaldo($this->conta, $saldo + $saldoAtualizar);
+            }
 
             if(!$executeQuery) {
                 die("Error: " . $db->connect->connect_error);
@@ -172,6 +188,17 @@ class Receita {
         $this->descricao = $post['descricao'];
         $this->conta = $post['conta'];
         $this->tipoReceita = $post['tipoReceita'];
+    }
+
+    public function getTotalDespesas() {
+        $db = new Connection;
+        $query = "SELECT * FROM receitas";
+        $executeQuery = mysqli_query($db->connect(), $query);
+
+        if($executeQuery) {
+            $totalReceitas = mysqli_num_rows($executeQuery);
+            return $totalReceitas;
+        }
     }
 
 }

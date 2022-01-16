@@ -6,6 +6,7 @@ use app\application\classes\controllers\ContasController;
 use app\application\classes\controllers\DespesasController;
 use app\application\classes\controllers\ReceitaController;
 use app\application\classes\controllers\PerfilController;
+use app\application\classes\controllers\WidgetController;
 
 require_once "../vendor/autoload.php";
 
@@ -37,6 +38,10 @@ $perfil = new PerfilController;
 </nav>
 
 <div class="widget">
+    <?php
+        $widget = new WidgetController;
+        $widget->listar();
+    ?>
 </div>
 
 <div class="content">

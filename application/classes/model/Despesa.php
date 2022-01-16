@@ -2,6 +2,7 @@
 
 namespace app\application\classes\model;
 
+use app\application\classes\model\Conta;
 use app\application\config\Connection;
 use app\application\utils\Paginator;
 
@@ -96,11 +97,16 @@ class Despesa
 
             $executeQuery = mysqli_query($db->connect(), $query);
 
+            $contaUpdate = new Conta;
+            $saldo = $contaUpdate->getSaldo($this->conta);
+            number_format($this->valor);
+            $contaUpdate->setSaldo($this->conta, $saldo - $this->valor);
+
             if(!$executeQuery) {
                 die("Error: " . $db->connect->connect_error);
             }
             else {
-                header("Location:despesas.php");
+                //header("Location:despesas.php");
             }
         }
         else {
@@ -109,7 +115,7 @@ class Despesa
     }
 
     //Edita o cadastro da receita com base no ID da receita
-    public function edit($id) {
+    public function edit($id, $valorAtual) {
         if(isset($_POST['submit'])) {
             $post = $_POST;
             $this->setPost($post);
@@ -125,6 +131,17 @@ class Despesa
             WHERE id='{$this->id}' ";
 
             $executeQuery = mysqli_query($db->connect(), $query);
+
+            $contaUpdate = new Conta;
+            $saldo = $contaUpdate->getSaldo($this->conta);
+            if($valorAtual > $this->valor) {
+                $saldoAtualizar = $valorAtual - $this->valor;
+                $contaUpdate->setSaldo($this->conta, $saldo + $saldoAtualizar);
+            }
+            else {
+                $saldoAtualizar = $this->valor - $valorAtual;
+                $contaUpdate->setSaldo($this->conta, $saldo - $saldoAtualizar);
+            }
 
             if(!$executeQuery) {
                 die("Error: " . $db->connect->connect_error);
@@ -173,5 +190,16 @@ class Despesa
         $this->dataPagamentoEsperado = $post['dataPagamentoEsperado'];
         $this->conta = $post['conta'];
         $this->tipoDespesa = $post['tipoDespesa'];
+    }
+
+    public function getTotalDespesas() {
+        $db = new Connection;
+        $query = "SELECT * FROM despesas";
+        $executeQuery = mysqli_query($db->connect(), $query);
+
+        if($executeQuery) {
+            $totalDepsesas = mysqli_num_rows($executeQuery);
+            return $totalDepsesas;
+        }
     }
 }
