@@ -65,7 +65,7 @@ class Perfil
 
         if($executeQuery) {
             //return mysqli_fetch_assoc($executeQuery);
-            header("Location:perfil.php");
+            header("Location:display_perfil.php");
         }
         else {
             return die("Error: " . $db->connect->connect_error);
@@ -73,8 +73,11 @@ class Perfil
     }
 
     public function login($username, $password) {
+        var_dump($username);
+        var_dump($password);
         $this->crypt = new Crypt;
         $this->usuarioBanco = $this->select($username);
+        var_dump($this->usuarioBanco);
         if(!empty($this->usuarioBanco)) {
             if($this->crypt->verify_password($username, $password)) {
                 $_SESSION['id'] = $this->usuarioBanco['id'];
@@ -86,6 +89,8 @@ class Perfil
             else {
                 echo "<script>alert('Senha incorreta!')</script>";
             }
+        }
+        else {
             echo "<script>alert('Usuário não encontrado!')</script>";
         }
     }

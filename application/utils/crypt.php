@@ -12,12 +12,13 @@ class crypt
     private string $passHashed;
     private Perfil $user;
 
-    public function verify_password($userPass, $usuario) {
+    public function verify_password($usuario, $userPass) {
         $this->user = new Perfil;
         $this->userPass = $userPass;
-        $this->passHashed = $this->user->select($usuario);
+        $dbUser = $this->user->select($usuario);
+        $this->passHashed = $dbUser['senha'];
         $this->passPeppered = hash_hmac("sha256", $this->userPass, $this->pepper);
-        if(password_verify($this->passHashed, $this->passPeppered)) {
+        if($this->passPeppered = password_verify($this->passPeppered, $this->passHashed)) {
             return true;
         }
         else {

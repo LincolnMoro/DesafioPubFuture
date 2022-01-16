@@ -15,6 +15,14 @@ class PerfilController {
         if(isset($_POST['submit'])) {
             $perfil->editar();
         }
-                require_once __DIR__ . '/../view/templates/perfil.php';
+                require_once __DIR__ . '/../view/templates/display_perfil.php';
+    }
+
+    public function login() {
+        require_once __DIR__ . '/../view/templates/login_perfil.php';
+        if(isset($_POST['submit'])) {
+            $perfil = new Perfil;
+            $perfil->login($_POST['usuario'], $_POST['senha']);
+        }
     }
 }
