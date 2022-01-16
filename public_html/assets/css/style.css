@@ -56,7 +56,7 @@ ul, .main-menu {
 .widget {
     /*background-color: #daddf5;*/
     background-color: #e9ebf5;
-    width: 28%;
+    width: 24%;
     position: relative;
     border-radius: 20px;
     z-index: 999;
@@ -64,7 +64,7 @@ ul, .main-menu {
 
 .content {
     background-color: #fff;
-    width: 48%;
+    width: 52%;
     margin-left: -20px;
     border-radius: 0 20px 20px 0;
 }
@@ -159,4 +159,24 @@ td:nth-child(6), td:nth-child(7) {
 
 .pager-li {
     list-style: none;
+}
+
+.widget-content {
+    width: 160px;
+    height: 160px;
+    background: #fff;
+    border: 1px solid #fff;
+    border-radius: 100px;
+    text-align: center;
+    box-shadow: 0px 0px 4px 2px #bdbdbd;
+    margin: 36px auto;
+}
+
+.widget-title {
+    margin-top: 46px;
+    font-size: 36px;
+}
+
+.widget-text {
+    font-size: 17px;
 }

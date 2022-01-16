@@ -100,7 +100,7 @@ class Despesa
             $contaUpdate = new Conta;
             $saldo = $contaUpdate->getSaldo($this->conta);
             number_format($this->valor);
-            $contaUpdate->setSaldo($this->conta, $saldo - $this->valor);
+            $contaUpdate->setSaldo($saldo - $this->valor, $this->conta);
 
             if(!$executeQuery) {
                 die("Error: " . $db->connect->connect_error);
@@ -136,11 +136,11 @@ class Despesa
             $saldo = $contaUpdate->getSaldo($this->conta);
             if($valorAtual > $this->valor) {
                 $saldoAtualizar = $valorAtual - $this->valor;
-                $contaUpdate->setSaldo($this->conta, $saldo + $saldoAtualizar);
+                $contaUpdate->setSaldo($saldo + $saldoAtualizar, $this->conta);
             }
             else {
                 $saldoAtualizar = $this->valor - $valorAtual;
-                $contaUpdate->setSaldo($this->conta, $saldo - $saldoAtualizar);
+                $contaUpdate->setSaldo($saldo - $saldoAtualizar, $this->conta);
             }
 
             if(!$executeQuery) {

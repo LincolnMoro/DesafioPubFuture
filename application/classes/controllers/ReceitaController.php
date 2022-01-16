@@ -49,7 +49,7 @@ class ReceitaController {
 
         if(isset($_POST['submit'])) {
             if(isset($_GET['id'])) {
-                $receita->edit($id);
+                $receita->edit($id, $editar['valor']);
             }
             else {
                 $receita->create();
