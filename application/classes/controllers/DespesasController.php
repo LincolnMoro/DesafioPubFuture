@@ -38,14 +38,14 @@ class DespesasController {
             $_REQUEST['editar'] = $editar;
         }
 
-        $tipoDespesa = $despesa->tiposReceita();
+        $tipoDespesa = $despesa->setDespesas();
         $contas = $despesa->getConta();
 
 
         $_REQUEST['tipoDespesa'] = $tipoDespesa;
         $_REQUEST['contas'] = $contas;
 
-        require_once __DIR__ . '/../view/templates/edit_receita.php';
+        require_once __DIR__ . '/../view/templates/edit_despesa.php';
 
         if(isset($_POST['submit'])) {
             if(isset($_GET['id'])) {

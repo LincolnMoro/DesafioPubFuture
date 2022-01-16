@@ -1,5 +1,5 @@
 <?php
-
+/*
 namespace app\public_html;
 
 use app\application\classes\controllers\ContasController;
@@ -13,9 +13,12 @@ $receita = new ReceitaController;
 $despesa = new DespesasController;
 $conta = new ContasController;
 $perfil = new PerfilController;
+*/
 
+require_once "assets/templates/header.php";
+require_once "assets/templates/footer.php";
 ?>
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -40,7 +43,7 @@ $perfil = new PerfilController;
 </div>
 
 <div class="content">
-    <?php
+    <?php /*
         if(isset($_GET['receitas'])) {
             $receita->listar();
         }
@@ -55,9 +58,9 @@ $perfil = new PerfilController;
         }
         if(empty($_GET)) {
             $receita->listar();
-        }
+        }*/
     ?>
 </div>
 
 </body>
-</html>
+</html> -->

@@ -100,7 +100,7 @@ class Despesa
                 die("Error: " . $db->connect->connect_error);
             }
             else {
-                header("Location:index.php");
+                header("Location:despesas.php");
             }
         }
         else {
@@ -130,7 +130,7 @@ class Despesa
                 die("Error: " . $db->connect->connect_error);
             }
             else {
-                header("Location:index.php?id={$this->id}");
+                header("Location:despesas.php?id={$this->id}");
             }
         }
     }
@@ -147,7 +147,7 @@ class Despesa
                 die("Error: " . $db->connect->connect_error);
             }
             else {
-                header("Location:index.php");
+                header("Location:despesas.php");
             }
         }
     }

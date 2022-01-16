@@ -2,7 +2,7 @@
 
 namespace app\application\classes\controllers;
 
-use app\application\classes\model\Despesa;
+use app\application\classes\model\Conta;
 
 class ContasController {
     public function listar() {

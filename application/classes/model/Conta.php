@@ -7,7 +7,7 @@ use app\application\utils\Paginator;
 
 class Conta {
     private float $saldo;
-    private string $tipoConta;
+    private $tipoConta;
     private string $instituicaoFinanceira;
     private int $conta;
     private $titular;

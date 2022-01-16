@@ -3,14 +3,14 @@ $despesas = $_REQUEST['despesas'];
 $tipoDespesa = $_REQUEST['tipoDespesa'];
 $pages = $_REQUEST['pages'];
 ?>
-
+<h2>Despesas</h2>
 <div class="view-nav">
     <p class="title">Filtrar consulta</p>
     <form action="" method="get">
-        <select>
+        <select name="tipo">
             <?php
             foreach ($tipoDespesa as $tipo) {
-                echo "<option value='{$tipo}'>{$tipo}</option>";
+                echo "<option value='{$tipo}' name='{$tipo}'>{$tipo}</option>";
             }
             ?>
         </select>
@@ -19,10 +19,10 @@ $pages = $_REQUEST['pages'];
         <label for="dataFinal">Data Final</label>
         <input type="date" name="ate" id="dataRecebimento" value="<?php if(isset($_GET['ate'])){ echo $_GET['ate']; }?>">
         <input class="button button-blue" type="submit" name="submit" value="Filtrar">
-        <div class="button-main"><a class="button-blue button" href="index.php">Limpar Filtros</a></div>
+        <div class="button-main"><a class="button-blue button" href="despesas.php">Limpar Filtros</a></div>
     </form>
     <hr>
-    <div class="button-main"><a class="button button-main button-green" href="index.php?add=receita">Adicionar Nova</a></div>
+    <div class="button-main"><a class="button button-main button-green" href="?add=despesa">Adicionar Nova</a></div>
 </div>
 <div class="">
     <table>
@@ -34,12 +34,12 @@ $pages = $_REQUEST['pages'];
         </tr>
         <?php foreach ($despesas as $despesa): ?>
             <tr>
-                <td><?php echo $despesas['valor'] ?></td>
+                <td><?php echo $despesa['valor'] ?></td>
                 <td><?php echo $despesa['dataPagamento'] ?></td>
                 <td><?php echo $despesa['dataPagamentoEsperado'] ?></td>
                 <td><?php echo $despesa['tipoDespesa'] ?></td>
-                <td><a class="button-blue button" href="index.php?id=<?php echo $despesa['id']; ?>">Editar</a></td>
-                <td><a class="button-red button" href="index.php?delete=<?php echo $despesa['id']; ?>">Excluir</a></td>
+                <td><a class="button-blue button" href="?id=<?php echo $despesa['id']; ?>">Editar</a></td>
+                <td><a class="button-red button" href="?delete=<?php echo $despesa['id']; ?>">Excluir</a></td>
             </tr>
         <?php endforeach; ?>
     </table>
@@ -48,22 +48,22 @@ $pages = $_REQUEST['pages'];
 <div class="paginator">
     <?php
     if(empty($_GET['pagina'])) {
-        echo "<a class='pager' href='index.php?pagina=1'>Anterior</a>";
+        echo "<a class='pager' href='?pagina=1'>Anterior</a>";
     }
     if(isset($_GET['pagina'])) {
         $page = $_GET['pagina'] <= 1 ? 1 : $_GET['pagina'] - 1;
-        echo "<a class='pager' href='index.php?pagina={$page}'>Anterior</a>";
+        echo "<a class='pager' href='?pagina={$page}'>Anterior</a>";
     }
     ?>
     <ul>
         <?php for($i = 1; $i <= $pages; $i++) {
-            echo "<li class='pager-li'><a class='pager' href='index.php?pagina={$i}'>{$i}</a></li>";
+            echo "<li class='pager-li'><a class='pager' href='?pagina={$i}'>{$i}</a></li>";
         } ?>
     </ul>
     <?php
     if(isset($_GET['pagina']) && ($_GET['pagina'] < $pages)) {
         $page = $_GET['pagina'] + 1;
-        echo "<a class='pager' href='index.php?pagina={$page}'>Próxima</a> ";
+        echo "<a class='pager' href='?pagina={$page}'>Próxima</a> ";
     }
     ?>
 </div>

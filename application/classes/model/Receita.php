@@ -97,7 +97,7 @@ class Receita {
                 die("Error: " . $db->connect->connect_error);
             }
             else {
-                header("Location:index.php");
+                header("Location:receitas.php");
             }
         }
         else {
@@ -128,7 +128,7 @@ class Receita {
                 die("Error: " . $db->connect->connect_error);
             }
             else {
-                header("Location:index.php?id={$this->id}");
+                header("Location:receitas.php?id={$this->id}");
             }
         }
     }
@@ -145,7 +145,7 @@ class Receita {
                 die("Error: " . $db->connect->connect_error);
             }
             else {
-                header("Location:index.php");
+                header("Location:receitas.php");
             }
         }
     }

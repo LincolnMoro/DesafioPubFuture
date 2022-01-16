@@ -1,34 +1,31 @@
 <?php
-$tiposReceita = $_REQUEST['tiposReceita'];
+$tipoConta = $_REQUEST['tipoConta'];
 if(isset($_REQUEST['editar'])) {
     $editar = $_REQUEST['editar'];
 }
-$contas = $_REQUEST['contas'];
 ?>
 
-<div class="view-nav">
-    <button formaction="index.php"><a href="index.php">Voltar</a></button>
-</div>
+<div class="button-main"><a class="button button-main button-blue" href="contas.php">Voltar</a></div>
 
 <div class="">
     <h2><?php echo isset($_GET['id']) ? "Editar" : "Adicionar"; ?> Conta</h2>
     <form action="" method="post">
 
         <div class="form-field">
-            <label for="valor">Valor</label>
-            <input type="text" name="valor" id="valor" value="<?php if($_GET == "id"){ echo $editar['valor']; }?>">
+            <label for="titular">Titular</label>
+            <input type="text" name="titular" id="titular" value="<?php if(isset($_GET['id'])){ echo $editar['titular']; }?>">
         </div>
 
         <div class="form-field">
-            <label for="descricao">Descrição</label>
-            <input type="text" name="descricao" id="descricao" value="<?php if($_GET == "id"){ echo $editar['descricao']; }?>">
+            <label for="instituicaoFinanceira">Instituição Financeira</label>
+            <input type="text" name="instituicaoFinanceira" id="instituicaoFinanceira" value="<?php if(isset($_GET['id'])){ echo $editar['instituicaoFinanceira']; }?>">
         </div>
 
         <div class="form-field">
-            <label for="tipoReceita">Tipo de Receita</label>
-            <select name="tipoReceita" id="tipoReceita">
+            <label for="tipoConta">Tipo de Conta</label>
+            <select name="tipoConta" id="tipoConta">
                 <?php
-                foreach ($tiposReceita as $tipo) {
+                foreach ($tipoConta as $tipo) {
                     echo "<option value='{$tipo}'>{$tipo}</option>";
                 }
                 ?>
@@ -36,28 +33,12 @@ $contas = $_REQUEST['contas'];
         </div>
 
         <div class="form-field">
-            <label for="dataRecebimento">Data de Recebimento</label>
-            <input type="date" name="dataRecebimento" id="dataRecebimento" value="<?php if($_GET == "id"){ echo $editar['dataRecebimento']; }?>">
-        </div>
-
-        <div class="form-field">
-            <label for="dataRecebimentoEsperado">Data Esperada para Recebimento</label>
-            <input type="date" name="dataRecebimentoEsperado" id="dataRecebimentoEsperado" value="<?php if($_GET == "id"){ echo $editar['dataRecebimentoEsperado']; }?>">
-        </div>
-
-        <div class="form-field">
             <label for="conta">Conta</label>
-            <select name="conta" id="conta">
-                <?php
-                foreach ($contas as $conta) {
-                    echo "<option value='{$conta['id']}'>{$conta['titular']} - {$conta['instituicaoFinanceira']} | {$conta['conta']}</option>";
-                }
-                ?>
-            </select>
+            <input type="text" name="conta" id="conta" value="<?php if(isset($_GET['id'])){ echo $editar['conta']; }?>">
         </div>
 
         <div class="form-field">
-            <input class="button" type="submit" name="submit" value="Salvar">
+            <input class="button button-main button-green" type="submit" name="submit" value="Salvar">
         </div>
     </form>
 </div>

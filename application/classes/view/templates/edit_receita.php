@@ -7,7 +7,7 @@ $contas = $_REQUEST['contas'];
 ?>
 
 <div class="view-nav">
-    <button formaction="index.php"><a href="index.php">Voltar</a></button>
+    <button formaction="receitas.php"><a href="receitas.php">Voltar</a></button>
 </div>
 
 <div class="">
