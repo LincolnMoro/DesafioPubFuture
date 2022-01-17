@@ -1,4 +1,5 @@
 <?php
+//Recebe os valores para exibição na tela
 $receitas = $_REQUEST['receitas'];
 $tiposReceita = $_REQUEST['tiposReceita'];
 $pages = $_REQUEST['pages'];
@@ -9,6 +10,7 @@ $pages = $_REQUEST['pages'];
     <form action="" method="get">
         <select name="tipo">
             <?php
+            //Lista os tipos de receitas
             foreach ($tiposReceita as $tipo) {
                 if($_GET['tipo'] == $tipo) {
                     $selected = "selected";
@@ -39,6 +41,7 @@ $pages = $_REQUEST['pages'];
             <th>Data Esperado</th>
             <th>Tipo</th>
         </tr>
+        <!-- Lista as receitas em forma de tabela -->
         <?php foreach ($receitas as $receita): ?>
             <tr>
                 <td><?php echo $receita['valor'] ?></td>
@@ -53,11 +56,14 @@ $pages = $_REQUEST['pages'];
     </table>
 </div>
 
+<!-- Sistema de paginação -->
 <div class="paginator">
     <?php
+        //Determina o comportamento em caso de a página não estar setada
         if(empty($_GET['pagina'])) {
             echo "<a class='pager' href='?pagina=1'>Anterior</a>";
         }
+        //Determina que ao clicar para voltar a página, o valor não será menor que 1
         if(isset($_GET['pagina'])) {
             $page = $_GET['pagina'] <= 1 ? 1 : $_GET['pagina'] - 1;
             echo "<a class='pager' href='?pagina={$page}'>Anterior</a>";

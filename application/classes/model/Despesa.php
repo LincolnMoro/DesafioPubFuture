@@ -19,11 +19,12 @@ class Despesa
     private $numRows;
     private int $numPages;
 
+    //Retorna o número de páginas para o sistema de paginação
     public function getNumPages() {
         return $this->numPages;
     }
 
-    //Define os valores padrão para tipos de receitas
+    //Define os valores padrão para tipos de despesas
     public function setDespesas() {
         return $this->tipoDespesa = [
             "alimentacao" => "Alimentação",
@@ -64,7 +65,7 @@ class Despesa
         }
     }
 
-    //Seleciona receita individual com base no ID
+    //Seleciona despesa individual com base no ID
     public function select($id) {
         $this->id = $id;
         $db = new Connection;
@@ -79,7 +80,7 @@ class Despesa
         }
     }
 
-    //Registra nova receita no banco de dados
+    //Registra nova despesa no banco de dados
     public function create() {
         if(isset($_POST['submit'])) {
             $post = $_POST;
@@ -97,6 +98,7 @@ class Despesa
 
             $executeQuery = mysqli_query($db->connect(), $query);
 
+            //Atualiza o saldo da conta selecionada com base no valor da despesa
             $contaUpdate = new Conta;
             $saldo = $contaUpdate->getSaldo($this->conta);
             number_format($this->valor);
@@ -114,10 +116,11 @@ class Despesa
         }
     }
 
-    //Edita o cadastro da receita com base no ID da receita
+    //Edita o cadastro da despesa com base no ID
     public function edit($id, $valorAtual) {
         if(isset($_POST['submit'])) {
             $post = $_POST;
+            //Envia os dados da variável POST para os atributos da classe
             $this->setPost($post);
             $this->id = $id;
 
@@ -132,6 +135,7 @@ class Despesa
 
             $executeQuery = mysqli_query($db->connect(), $query);
 
+            //Atualiza o saldo da conta selecionada com base no valor atualizado da despesa
             $contaUpdate = new Conta;
             $saldo = $contaUpdate->getSaldo($this->conta);
             if($valorAtual > $this->valor) {
@@ -152,6 +156,7 @@ class Despesa
         }
     }
 
+    //Remove despesa do banco de dados com base no ID
     public function delete($id) {
         if(isset($_GET['delete'])) {
             $db = new Connection;
@@ -164,11 +169,13 @@ class Despesa
                 die("Error: " . $db->connect->connect_error);
             }
             else {
+                //Envia o usuário para a tela de listagem após o cadastro
                 header("Location:despesas.php");
             }
         }
     }
 
+    //Retorna as contas para cadastro da despesa
     public function getConta() {
         $db = new Connection;
         $query = "SELECT * FROM contas";
@@ -192,6 +199,7 @@ class Despesa
         $this->tipoDespesa = $post['tipoDespesa'];
     }
 
+    //Retorna o número total de despesas
     public function getTotalDespesas() {
         $db = new Connection;
         $query = "SELECT * FROM despesas";

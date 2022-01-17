@@ -1,5 +1,7 @@
 <?php
+//Recebe os valores para exibição na tela
 $tipoConta = $_REQUEST['tipoConta'];
+//Determina se a ação será a edição ou criação de reegistro
 if(isset($_REQUEST['editar'])) {
     $editar = $_REQUEST['editar'];
 }
@@ -25,6 +27,7 @@ if(isset($_REQUEST['editar'])) {
             <label for="tipoConta">Tipo de Conta</label>
             <select name="tipoConta" id="tipoConta">
                 <?php
+                //Lista os tipos de conta
                 foreach ($tipoConta as $tipo) {
                     echo "<option value='{$tipo}'>{$tipo}</option>";
                 }

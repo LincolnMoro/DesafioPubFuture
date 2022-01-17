@@ -1,4 +1,5 @@
 <?php
+//Recebe os valores para exibição na tela
 $contas = $_REQUEST['contas'];
 $tiposconta = $_REQUEST['tipoConta'];
 $pages = $_REQUEST['pages'];
@@ -9,6 +10,7 @@ $pages = $_REQUEST['pages'];
     <form action="?contas" method="get">
         <select>
             <?php
+            //Lista os tipos de contas
             foreach ($tiposconta as $tipo) {
                 if($_GET['tipo'] == $tipo) {
                     $selected = "selected";
@@ -36,6 +38,7 @@ $pages = $_REQUEST['pages'];
             <th>Saldo</th>
             <th>Ação</th>
         </tr>
+        <!-- Lista as contas em forma de tabela -->
         <?php foreach ($contas as $conta): ?>
             <tr>
                 <td><?php echo $conta['titular'] ?></td>
@@ -51,11 +54,14 @@ $pages = $_REQUEST['pages'];
     </table>
 </div>
 
+<!-- Sistema de paginação -->
 <div class="paginator">
     <?php
+    //Determina o comportamento em caso de a página não estar setada
     if(empty($_GET['pagina'])) {
         echo "<a class='pager' href='contas.php?pagina=1'>Anterior</a>";
     }
+    //Determina que ao clicar para voltar a página, o valor não será menor que 1
     if(isset($_GET['pagina'])) {
         $page = $_GET['pagina'] <= 1 ? 1 : $_GET['pagina'] - 1;
         echo "<a class='pager' href='contas.php?pagina={$page}'>Anterior</a>";

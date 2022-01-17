@@ -20,11 +20,12 @@ class Conta {
     private $saldoTemp;
     private $saldoTotal;
 
+    //Retorna o número total de páginas para paginação
     public function getNumPages() {
         return $this->numPages;
     }
 
-    //Define os valores padrão para tipos de receitas
+    //Define os valores padrão para tipos de conta
     public function setTipoConta() {
         return $this->tipoConta = [
             "carteira" => "Carteira",
@@ -33,13 +34,13 @@ class Conta {
         ];
     }
 
-    //Retorna tipos de despesas padrão
+    //Retorna tipos de conta padrão
     public function tipoConta() {
         $this->setTipoConta();
         return $this->tipoConta;
     }
 
-    //Lista todas as despesas para exibição na página
+    //Lista todas as contas para exibição na página
     public function listAll() {
         $db = new Connection;
         $pager = new Paginator;
@@ -49,6 +50,7 @@ class Conta {
 
         if($executeQuery) {
             $this->numRows = mysqli_num_rows($executeQuery);
+            //Identifica o número total de páginas com base no número de linhas
             $this->numPages = $pager->totalPages($this->numRows);
             return $executeQuery;
         }
@@ -57,7 +59,7 @@ class Conta {
         }
     }
 
-    //Seleciona receita individual com base no ID
+    //Seleciona conta individual com base no ID
     public function select($id) {
         $this->id = $id;
         $db = new Connection;
@@ -72,7 +74,7 @@ class Conta {
         }
     }
 
-    //Registra nova receita no banco de dados
+    //Registra nova conta no banco de dados
     public function create() {
         if(isset($_POST['submit'])) {
             $post = $_POST;
@@ -94,6 +96,7 @@ class Conta {
                 die("Error: " . $db->connect->connect_error);
             }
             else {
+                //Envia o usuário para a tela de listagem após o cadastro
                 header("Location:contas.php");
             }
         }
@@ -102,7 +105,7 @@ class Conta {
         }
     }
 
-    //Edita o cadastro da receita com base no ID da receita
+    //Edita o cadastro da conta com base no ID da receita
     public function edit($id) {
         if(isset($_POST['submit'])) {
             $post = $_POST;
@@ -123,11 +126,13 @@ class Conta {
                 die("Error: " . $db->connect->connect_error);
             }
             else {
+                //Envia o usuário para a tela de listagem após o cadastro
                 header("Location:contas.php?id={$this->id}");
             }
         }
     }
 
+    //Remove a conta com base no ID do banco de dados
     public function delete($id) {
         if(isset($_GET['delete'])) {
             $db = new Connection;
@@ -140,31 +145,38 @@ class Conta {
                 die("Error: " . $db->connect->connect_error);
             }
             else {
+                //Envia o usuário para a tela de listagem após o cadastro
                 header("Location:contas.php");
             }
         }
     }
 
+    //Responsável por realizar a transferência de valores entre contas
     public function transferir($origem) {
         if(isset($_POST['submit'])) {
             $this->contaDestino = $_POST['contaDestino'];
             $this->valorTransferir = $_POST['valor'];
 
+            //Identifica o saldo das contas de origem e destino para transferência
             $saldoOrigem = $this->getSaldo($origem);
             $saldoDestino = $this->getSaldo($this->contaDestino);
 
+            //Ajusta o saldo das contas de origem e destino com base no valor da transferêencia
             $this->setSaldo($saldoOrigem - $this->valorTransferir, $origem);
             $this->setSaldo($saldoDestino + $this->valorTransferir, $this->contaDestino);
 
+            //Envia o usuário para a tela de listagem após o cadastro
             return header("Location:contas.php");
         }
     }
 
+    //Retorna o saldo da conta
     public function getSaldo($conta) {
         $contaDados = $this->select($conta);
         return $contaDados['saldo'];
     }
 
+    //Ajusta o saldo da conta
     public function setSaldo($valor, $conta) {
         $db = new Connection;
 
@@ -185,6 +197,7 @@ class Conta {
         $this->tipoConta = $post['tipoConta'];
     }
 
+    //Retorna o saldo total de todas as contas combinadas
     public function getSaldoTotal() {
         $db = new Connection;
 

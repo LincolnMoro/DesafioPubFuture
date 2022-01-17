@@ -8,6 +8,7 @@ use app\application\classes\model\Receita;
 
 class WidgetController
 {
+    //Lista o número total de receitas, despesas e o saldo total
     public function listar() {
         $conta = new Conta;
         $despesa = new Despesa;
@@ -21,6 +22,7 @@ class WidgetController
         $_REQUEST['totalDepsesas'] = $totalDepsesas;
         $_REQUEST['totalReceitas'] = $totalReceitas;
 
+        //Chama o template do widget
         require_once __DIR__ . '/../view/templates/widget.php';
     }
 }

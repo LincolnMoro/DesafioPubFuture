@@ -217,3 +217,53 @@ label {
     width: 190px;
     border-radius: 100px;
 }
+
+.form-box {
+    width: 600px;
+    padding: 80px;
+    margin: 180px auto;
+    background-color: #5d70ff;
+    border-radius: 50px;
+}
+
+.form-box input {
+    box-shadow: none;
+}
+
+.form-box label {
+    color: #fff;
+}
+
+.form-box .button {
+    margin-top: 40px;
+    background-color: #fd8c00;
+    color: #fff;
+    font-weight: 600;
+    border-color: #fd8c00;
+}
+
+.form-title {
+    font-family: Ubuntu;
+    color: #fff;
+    text-align: center;
+    margin: 0 0 20px 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Ubuntu;
+}
+
+.title {
+    font-size: 20px;
+}
+
+.summary {
+    margin: 30px 0;
+    font-size: 18px;
+    color: #767676;
+}
+
+.resume {
+    text-align: center;
+    padding: 50px;
+}

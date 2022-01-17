@@ -12,10 +12,11 @@ class crypt
     private string $passHashed;
     private Perfil $user;
 
+    //Verifica a igualdade das senhas no momento do login
     public function verify_password($usuario, $userPass) {
         $this->user = new Perfil;
         $this->userPass = $userPass;
-        $dbUser = $this->user->select($usuario);
+        $dbUser = $this->user->selectLogin($usuario);
         $this->passHashed = $dbUser['senha'];
         $this->passPeppered = hash_hmac("sha256", $this->userPass, $this->pepper);
         if($this->passPeppered = password_verify($this->passPeppered, $this->passHashed)) {
@@ -26,6 +27,7 @@ class crypt
         }
     }
 
+    //Criptografa a senha do usuário
     public function encrypt($userPass) {
         $this->userPass = $userPass;
         $this->passPeppered = hash_hmac("sha256", $this->userPass, $this->pepper);

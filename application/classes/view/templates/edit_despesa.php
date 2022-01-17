@@ -1,5 +1,7 @@
 <?php
+//Recebe os valores para exibição na tela
 $tipoDespesa = $_REQUEST['tipoDespesa'];
+//Determina se a ação será a edição ou criação de reegistro
 if(isset($_REQUEST['editar'])) {
     $editar = $_REQUEST['editar'];
 }
@@ -21,6 +23,7 @@ $contas = $_REQUEST['contas'];
             <label for="tipoDespesa">Tipo de Despesa</label>
             <select name="tipoDespesa" id="tipoDespesa">
                 <?php
+                //Lista os tipos de despesas
                 foreach ($tipoDespesa as $tipo) {
                     if(isset($_GET['id'])) {
                         if($tipo == $editar['tipoDespesa']) {
@@ -50,6 +53,7 @@ $contas = $_REQUEST['contas'];
             <label for="conta">Conta</label>
             <select name="conta" id="conta">
                 <?php
+                //Lista as contas para seleção
                 foreach ($contas as $conta) {
                     if(isset($_GET['id'])) {
                         if($conta == $editar['conta']) {

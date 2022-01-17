@@ -6,7 +6,11 @@ use app\application\classes\controllers\PerfilController;
 
 require_once "../vendor/autoload.php";
 
+//Iniciliza o controlador de perfil
 $login = new PerfilController;
+
+//Inicializa a sessão após o login
 session_start();
-//require_once "../public_html/assets/templates/header.php";
+
+//Renderiza o conteúdo da página
 $login->login();

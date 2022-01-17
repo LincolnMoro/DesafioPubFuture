@@ -1,8 +1,9 @@
 <?php
-
+    //Inicia a sessão de usuário
     ob_start();
     session_start();
 
+    //Defini se o usuário está logado e se não estiver, direciona para a tela de login
     if(!isset($_SESSION['usuario'])) {
         header('Location:login.php');
     }

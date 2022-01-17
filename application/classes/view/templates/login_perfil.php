@@ -9,6 +9,7 @@
 <body>
 
 <div class="form-box">
+    <h1 class="form-title">Login</h1>
     <form action="" method="post">
         <div class="form-field">
             <label for="usuario">Usuário</label>
@@ -21,7 +22,7 @@
         </div>
 
         <div class="form-field">
-            <input class="button" type="submit" name="submit" value="Salvar Edições">
+            <input class="button" type="submit" name="submit" value="Login">
         </div>
     </form>
 </div>

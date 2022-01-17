@@ -1,4 +1,5 @@
 <?php
+//Recebe os valores para exibição na tela
 $tipoConta = $_REQUEST['tipoConta'];
 $contaOrigem = $_REQUEST['contaOrigem'];
 $contas = $_REQUEST['contas'];
@@ -37,6 +38,7 @@ $contas = $_REQUEST['contas'];
             <label for="conta">Conta</label>
             <select name="contaDestino" id="conta">
                 <?php
+                //Lista as contas para seleção de conta de destino
                 foreach ($contas as $conta) {
                     echo "<option value='{$conta['id']}'>{$conta['titular']} - {$conta['instituicaoFinanceira']} | {$conta['conta']}</option>";
                 }

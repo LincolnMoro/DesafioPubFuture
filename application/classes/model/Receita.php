@@ -18,6 +18,7 @@ class Receita {
     private $numRows;
     private int $numPages;
 
+    //Retorna o número de páginas para o sistema de paginação
     public function getNumPages() {
         return $this->numPages;
     }
@@ -32,7 +33,7 @@ class Receita {
         ];
     }
 
-    //Retorna tipos de receeita padrão
+    //Retorna tipos de receita padrão
     public function tiposReceita() {
         $this->setReceitas();
         return $this->tipoReceita;
@@ -49,6 +50,7 @@ class Receita {
         $query = "SELECT * FROM receitas WHERE dataRecebimento BETWEEN '{$this->dataDe}' AND ('{$this->dataAte}') OR tipoReceita='{$this->tipoFiltro}' LIMIT {$offset}, 10";
         $executeQuery = mysqli_query($db->connect(), $query);
 
+        //Retorna o número de linhas para o sistema de paginação
         if($executeQuery) {
             $this->numRows = mysqli_num_rows($executeQuery);
             $this->numPages = $pager->totalPages($this->numRows);
@@ -93,6 +95,7 @@ class Receita {
 
             $executeQuery = mysqli_query($db->connect(), $query);
 
+            //Atualiza o saldo da conta selecionada com base no valor da receita
             $contaUpdate = new Conta;
             $saldo = $contaUpdate->getSaldo($this->conta);
             number_format($this->valor);
@@ -129,6 +132,7 @@ class Receita {
 
             $executeQuery = mysqli_query($db->connect(), $query);
 
+            //Atualiza o saldo da conta selecionada com base no valor atualizado da receita
             $contaUpdate = new Conta;
             $saldo = $contaUpdate->getSaldo($this->conta);
             if($valorAtual > $this->valor) {
@@ -144,11 +148,13 @@ class Receita {
                 die("Error: " . $db->connect->connect_error);
             }
             else {
+                //Direciona o usuário para a página de listagem padrão
                 header("Location:receitas.php?id={$this->id}");
             }
         }
     }
 
+    //Remove receita do banco de dados com base no ID
     public function delete($id) {
         if(isset($_GET['delete'])) {
             $db = new Connection;
@@ -166,6 +172,7 @@ class Receita {
         }
     }
 
+    //Lista as contas para seleção no cadastro da receita
     public function getConta() {
         $db = new Connection;
         $query = "SELECT * FROM contas";
@@ -190,6 +197,7 @@ class Receita {
         $this->tipoReceita = $post['tipoReceita'];
     }
 
+    //Retorna o número total de receitas
     public function getTotalDespesas() {
         $db = new Connection;
         $query = "SELECT * FROM receitas";
