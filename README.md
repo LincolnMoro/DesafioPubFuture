@@ -10,7 +10,7 @@
 ### Conexão ao banco de dados
 O banco de dados se localiza nesta mesma pasta inicial com o nome de pubfuture.sql.
 
-A conexão ao banco de dados é configurada no arquivo /application/utils/Connection.php
+A conexão ao banco de dados é configurada no arquivo /application/config/Connection.php
 
 ### Login
 Página de login: /login.php
