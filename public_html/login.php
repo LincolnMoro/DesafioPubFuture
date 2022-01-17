@@ -7,7 +7,6 @@ use app\application\classes\controllers\PerfilController;
 require_once "../vendor/autoload.php";
 
 $login = new PerfilController;
-
-require_once "assets/templates/header.php";
+session_start();
+//require_once "../public_html/assets/templates/header.php";
 $login->login();
-require_once "assets/templates/footer.php";

@@ -16,7 +16,17 @@ $perfil = new PerfilController;
 */
 
 require_once "assets/templates/header.php";
+require_once "assets/templates/content.php";
+?>
+
+<h1>Sistema de gestão de Financias</h1>
+
+<p class="title">Seja bem vindo <?php echo $_SESSION['nome']; ?></p>
+<p>No menu lateral você pode navegar entre as opções do sistema de gestão de financias pessoais. Bom planejamento e boa financias :)</p>
+
+<?php
 require_once "assets/templates/footer.php";
+
 ?>
 <!--<!DOCTYPE html>
 <html lang="pt-BR">
@@ -43,23 +53,7 @@ require_once "assets/templates/footer.php";
 </div>
 
 <div class="content">
-    <?php /*
-        if(isset($_GET['receitas'])) {
-            $receita->listar();
-        }
-        if(isset($_GET['despesas'])) {
-            $despesa->listar();
-        }
-        if(isset($_GET['contas'])) {
-            $conta->listar();
-        }
-        if(isset($_GET['perfil'])) {
-            $perfil->listar();
-        }
-        if(empty($_GET)) {
-            $receita->listar();
-        }*/
-    ?>
+
 </div>
 
 </body>

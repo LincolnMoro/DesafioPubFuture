@@ -10,10 +10,18 @@ use app\application\classes\controllers\WidgetController;
 
 require_once "../vendor/autoload.php";
 
+session_start();
+
 $receita = new ReceitaController;
 $despesa = new DespesasController;
 $conta = new ContasController;
 $perfil = new PerfilController;
+
+if($_SESSION['active'] == false) {
+        header("Location:login.php");
+        exit;
+        //return;
+    }
 
 ?>
 <!DOCTYPE html>
@@ -26,22 +34,3 @@ $perfil = new PerfilController;
 </head>
 <body>
 
-<nav class="main-nav">
-    <menu class="main-menu">
-        <ul>
-            <li><a href="receitas.php"><i class="fas fa-search-dollar"></i><p>Receitas</p></a></li>
-            <li><a href="despesas.php"><i class="fas fa-file-invoice-dollar"></i><p>Despesas</p></a></li>
-            <li><a href="contas.php"><i class="fas fa-money-check-alt"></i><p>Contas</p></a></li>
-            <li><a href="perfil.php"><i class="far fa-user"></i><p>Meu Perfil</p></a></li>
-        </ul>
-    </menu>
-</nav>
-
-<div class="widget">
-    <?php
-        $widget = new WidgetController;
-        $widget->listar();
-    ?>
-</div>
-
-<div class="content">

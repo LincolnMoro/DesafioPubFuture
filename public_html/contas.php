@@ -9,5 +9,6 @@ require_once "../vendor/autoload.php";
 $contas = new ContasController;
 
 require_once "assets/templates/header.php";
+require_once "assets/templates/content.php";
 $contas->listar();
 require_once "assets/templates/footer.php";

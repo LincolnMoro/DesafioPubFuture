@@ -73,18 +73,18 @@ class Perfil
     }
 
     public function login($username, $password) {
-        var_dump($username);
-        var_dump($password);
         $this->crypt = new Crypt;
         $this->usuarioBanco = $this->select($username);
-        var_dump($this->usuarioBanco);
         if(!empty($this->usuarioBanco)) {
             if($this->crypt->verify_password($username, $password)) {
+
                 $_SESSION['id'] = $this->usuarioBanco['id'];
                 $_SESSION['usuario'] = $this->usuarioBanco['usuario'];
                 $_SESSION['nome'] = $this->usuarioBanco['nome'];
+                $_SESSION['active'] = true;
 
                 header("Location:index.php");
+
             }
             else {
                 echo "<script>alert('Senha incorreta!')</script>";
