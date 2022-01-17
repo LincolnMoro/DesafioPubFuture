@@ -36,7 +36,7 @@ $usuario = $_REQUEST['usuario'];
         </div>
 
         <div class="form-field">
-            <input class="button" type="submit" name="submit" value="Salvar Edições">
+            <input class="button button-main button-green" type="submit" name="submit" value="Salvar Edições">
         </div>
     </form>
 </div>

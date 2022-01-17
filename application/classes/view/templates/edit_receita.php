@@ -6,9 +6,7 @@ if(isset($_REQUEST['editar'])) {
 $contas = $_REQUEST['contas'];
 ?>
 
-<div class="view-nav">
-    <button formaction="receitas.php"><a href="receitas.php">Voltar</a></button>
-</div>
+<div class="button-main"><a class="button button-main button-blue" href="receitas.php">Voltar</a></div>
 
 <div class="">
     <h2><?php echo isset($_GET['id']) ? "Editar" : "Adicionar"; ?> Receita</h2>
@@ -57,7 +55,7 @@ $contas = $_REQUEST['contas'];
         </div>
 
         <div class="form-field">
-            <input class="button" type="submit" name="submit" value="Salvar">
+            <input class="button button-main button-green" type="submit" name="submit" value="Salvar">
         </div>
     </form>
 </div>

@@ -10,6 +10,12 @@ $pages = $_REQUEST['pages'];
         <select>
             <?php
             foreach ($tiposconta as $tipo) {
+                if($_GET['tipo'] == $tipo) {
+                    $selected = "selected";
+                }
+                else {
+                    $selected = '';
+                }
                 echo "<option value='{$tipo}'>{$tipo}</option>";
             }
             ?>

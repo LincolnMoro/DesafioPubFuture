@@ -10,6 +10,12 @@ $pages = $_REQUEST['pages'];
         <select name="tipo">
             <?php
             foreach ($tiposReceita as $tipo) {
+                if($_GET['tipo'] == $tipo) {
+                    $selected = "selected";
+                }
+                else {
+                    $selected = '';
+                }
                 echo "<option value='{$tipo}'>{$tipo}</option>";
             }
             ?>
@@ -19,7 +25,7 @@ $pages = $_REQUEST['pages'];
         <label for="dataFinal">Data Final</label>
         <input type="date" name="ate" id="dataRecebimento" value="<?php if(isset($_GET['ate'])){ echo $_GET['ate']; }?>">
         <input class="button button-blue" type="submit" name="submit" value="Filtrar">
-        <div class="button-main"><a class="button-blue button" href="/receitas.php">Limpar Filtros</a></div>
+        <div class="button-main"><a class="button-blue button" href="receitas.php">Limpar Filtros</a></div>
     </form>
     <hr>
     <div class="button-main"><a class="button button-main button-green" href="?add=receita">Adicionar Nova</a></div>
