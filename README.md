@@ -26,4 +26,4 @@ pois isso poderia implicar em riscos de alteração de saldo com base em ações
 
 O widget lateral exibe o total de Receitas, Despesas e Saldo Total do sistema.
 
-Uma versão online do sistema pode ser visto em pubfuture.lincolndaweb.com.
+Uma versão online do sistema pode ser visto em lincolnmoro.site.
