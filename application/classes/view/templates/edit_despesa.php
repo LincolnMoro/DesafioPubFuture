@@ -16,7 +16,7 @@ $contas = $_REQUEST['contas'];
 
         <div class="form-field">
             <label for="valor">Valor</label>
-            <input type="text" name="valor" id="valor" value="<?php if(isset($_GET['id'])){ echo $editar['valor']; }?>">
+            <input type="number" name="valor" id="valor" value="<?php if(isset($_GET['id'])){ echo $editar['valor']; }?>">
         </div>
 
         <div class="form-field">
