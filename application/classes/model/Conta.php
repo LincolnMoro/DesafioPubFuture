@@ -19,6 +19,8 @@ class Conta {
     private int $numPages;
     private $saldoTemp;
     private $saldoTotal;
+    private $tipoFiltro;
+    private $tipoFiltroQuery;
 
     //Retorna o número total de páginas para paginação
     public function getNumPages() {
@@ -45,7 +47,13 @@ class Conta {
         $db = new Connection;
         $pager = new Paginator;
         $offset = $pager->offset();
-        $query = "SELECT * FROM contas LIMIT {$offset}, 10";
+        if(isset($_GET['tipo'])) {
+            $this->tipoFiltro = "WHERE tipoconta='" . $_GET['tipo'] . "'";
+        }
+        else {
+            $this->tipoFiltro = "";
+        }
+        $query = "SELECT * FROM contas {$this->tipoFiltro} LIMIT {$offset}, 10";
         $executeQuery = mysqli_query($db->connect(), $query);
 
         if($executeQuery) {

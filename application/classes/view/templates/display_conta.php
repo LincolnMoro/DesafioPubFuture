@@ -8,7 +8,7 @@ $pages = $_REQUEST['pages'];
 <div class="view-nav">
     <p class="title">Filtrar consulta</p>
     <form action="?contas" method="get">
-        <select>
+        <select name="tipo">
             <?php
             //Lista os tipos de contas
             foreach ($tiposconta as $tipo) {
@@ -18,7 +18,7 @@ $pages = $_REQUEST['pages'];
                 else {
                     $selected = '';
                 }
-                echo "<option value='{$tipo}'>{$tipo}</option>";
+                echo "<option value='{$tipo}' {$selected}>{$tipo}</option>";
             }
             ?>
         </select>
